@@ -38,52 +38,69 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-purple-500 to-blue-400 flex items-center justify-center min-h-screen">
-      <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Login</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-gray-700 font-semibold mb-1">Email</label>
-            <input
-              name="email"
-              type="email"
-              value={form.email}
-              onChange={handleChange}
-              placeholder="Enter your email"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-          </div>
+    <div className="bg-gradient-to-r from-purple-500 to-blue-400 flex items-center justify-center min-h-screen px-4">
+  <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full transition-all duration-300">
+    <h2 className="text-3xl font-bold text-center text-gray-800 mb-6 tracking-wide">
+      Welcome Back 👋
+    </h2>
 
-          <div>
-            <label className="block text-gray-700 font-semibold mb-1">Password</label>
-            <input
-              name="password"
-              type="password"
-              value={form.password}
-              onChange={handleChange}
-              placeholder="Enter your password"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-            {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
-          </div>
-
-          <button
-            type="submit"
-            className="w-full bg-green-600 text-white py-2 rounded-lg font-semibold hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400"
-          >
-            Login
-          </button>
-        </form>
-
-        <p className="text-center text-gray-600 mt-4">
-          Don't have an account?{' '}
-          <Link to="/register" className="text-blue-500 font-semibold hover:underline">
-            Register
-          </Link>
-        </p>
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <div>
+        <label htmlFor="email" className="block text-gray-700 font-medium mb-1">
+          Email
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          value={form.email}
+          onChange={handleChange}
+          placeholder="your@gmail.com"
+          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+        />
+        {errors.email && (
+          <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+        )}
       </div>
-    </div>
+
+      <div>
+        <label htmlFor="password" className="block text-gray-700 font-medium mb-1">
+          Password
+        </label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          value={form.password}
+          onChange={handleChange}
+          placeholder="••••••••"
+          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+        />
+        {errors.password && (
+          <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+        )}
+      </div>
+
+      <button
+        type="submit"
+        className="w-full bg-green-600 text-white py-2.5 rounded-lg font-semibold hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
+      >
+        Login
+      </button>
+    </form>
+
+    <p className="text-center text-gray-600 mt-5">
+      Don't have an account?{" "}
+      <Link
+        to="/register"
+        className="text-blue-600 font-semibold hover:underline"
+      >
+        Register
+      </Link>
+    </p>
+  </div>
+</div>
+
   );
 };
 

@@ -10,29 +10,29 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 text-white p-4 flex justify-between items-center">
-      <h1 className="text-lg font-bold">Pet Adoption</h1>
-      <div className="space-x-4">
+    <nav className="bg-gradient-to-r from-teal-500 to-emerald-500 text-white py-5 px-6 flex justify-between items-center shadow-md">
+      <h1 className="text-2xl font-semibold tracking-tight">Pet Adoption</h1>
+      <div className="space-x-5">
         {user && user.role === "adopter" && (
-          <Link to="/adopter-dashboard" className="hover:underline">Dashboard</Link>
+          <Link to="/adopter-dashboard" className=" text-white font-semibold hover:text-teal-200 transition duration-300">Dashboard</Link>
         )}
         {user && user.role === "shelter" && (
-          <Link to="/shelter-dashboard" className="hover:underline">Dashboard</Link>
+          <Link to="/shelter-dashboard" className=" text-white font-semibold hover:text-teal-200 transition duration-300">Dashboard</Link>
         )}
         {user?.role === "admin" && (
-        <Link to="/admin-dashboard" className="hover:underline">Admin</Link>
+        <Link to="/admin-dashboard" className=" text-white font-semibold hover:text-teal-200 transition duration-300">Admin</Link>
          )}
 
         {user ? (
-          <button onClick={logout} className="bg-red-500 px-3 py-1 rounded">Logout</button>
+          <button onClick={logout} className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-red-400 transition duration-300">Logout</button>
         ) : (
           <>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
+            <Link to="/login" className="hover:text-gray-200 transition duration-300" >Login</Link>
+            <Link to="/register" className="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-400 transition duration-300">Register</Link>
           </>
         )}
       </div>
-    </nav>
+    </nav> 
   );
 };
 

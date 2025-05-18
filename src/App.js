@@ -6,6 +6,7 @@ import ShelterDashboard from "./pages/ShelterDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
+import PetDetails from "./pages/PetDetails";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -54,6 +55,8 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/pet/:id" element={<PetDetails />} />
+
       </Routes>
     </>
   );

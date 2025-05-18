@@ -48,90 +48,102 @@ const Register = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-blue-400 to-purple-500 flex items-center justify-center min-h-screen">
-      <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Create an Account</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-gray-700 font-semibold mb-1">Username</label>
-            <input
-              name="name"
-              placeholder="Enter your username"
-              value={form.name}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-            {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
-          </div>
+    <div className="bg-gradient-to-r from-blue-400 to-purple-500 flex items-center justify-center min-h-screen px-4">
+  <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full transition-all duration-300">
+    <h2 className="text-3xl font-bold text-center text-gray-800 mb-6 tracking-wide">
+      Create Your Account 🐶
+    </h2>
 
-          <div>
-            <label className="block text-gray-700 font-semibold mb-1">Email</label>
-            <input
-              name="email"
-              type="email"
-              placeholder="Enter your email"
-              value={form.email}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-          </div>
-
-          <div>
-            <label className="block text-gray-700 font-semibold mb-1">Password</label>
-            <input
-              name="password"
-              type="password"
-              placeholder="Enter your password"
-              value={form.password}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-            {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
-          </div>
-
-          <div>
-            <label className="block text-gray-700 font-semibold mb-1">Confirm Password</label>
-            <input
-              name="confirmPassword"
-              type="password"
-              placeholder="Confirm your password"
-              value={form.confirmPassword}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-            {errors.confirmPassword && <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>}
-          </div>
-
-          <div>
-            <label className="block text-gray-700 font-semibold mb-1">Role</label>
-            <select
-              name="role"
-              value={form.role}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            >
-              <option value="adopter">Adopter</option>
-              <option value="shelter">Shelter</option>
-            </select>
-          </div>
-
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-lg font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
-          >
-            Register
-          </button>
-        </form>
-
-        <p className="text-center text-gray-600 mt-4">
-          Already have an account?{' '}
-          <Link to="/login" className="text-blue-500 font-semibold hover:underline">
-            Sign In
-          </Link>
-        </p>
+    <form onSubmit={handleSubmit} className="space-y-5">
+      {/* Username */}
+      <div>
+        <label className="block text-gray-700 font-medium mb-1">Username</label>
+        <input
+          name="name"
+          placeholder="Enter your username"
+          value={form.name}
+          onChange={handleChange}
+          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+        />
+        {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
       </div>
-    </div>
+
+      {/* Email */}
+      <div>
+        <label className="block text-gray-700 font-medium mb-1">Email</label>
+        <input
+          name="email"
+          type="email"
+          placeholder="Enter your email"
+          value={form.email}
+          onChange={handleChange}
+          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+        />
+        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+      </div>
+
+      {/* Password */}
+      <div>
+        <label className="block text-gray-700 font-medium mb-1">Password</label>
+        <input
+          name="password"
+          type="password"
+          placeholder="Enter your password"
+          value={form.password}
+          onChange={handleChange}
+          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+        />
+        {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
+      </div>
+
+      {/* Confirm Password */}
+      <div>
+        <label className="block text-gray-700 font-medium mb-1">Confirm Password</label>
+        <input
+          name="confirmPassword"
+          type="password"
+          placeholder="Confirm your password"
+          value={form.confirmPassword}
+          onChange={handleChange}
+          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+        />
+        {errors.confirmPassword && (
+          <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
+        )}
+      </div>
+
+      {/* Role */}
+      <div>
+        <label className="block text-gray-700 font-medium mb-1">Role</label>
+        <select
+          name="role"
+          value={form.role}
+          onChange={handleChange}
+          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+        >
+          <option value="adopter">Adopter</option>
+          <option value="shelter">Shelter</option>
+        </select>
+      </div>
+
+      {/* Submit Button */}
+      <button
+        type="submit"
+        className="w-full bg-blue-500 text-white py-2.5 rounded-lg font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 transition"
+      >
+        Register
+      </button>
+    </form>
+
+    <p className="text-center text-gray-600 mt-5">
+      Already have an account?{' '}
+      <Link to="/login" className="text-blue-600 font-semibold hover:underline">
+        Sign In
+      </Link>
+    </p>
+  </div>
+</div>
+
   );
 };
 
