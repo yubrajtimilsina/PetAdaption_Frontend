@@ -14,10 +14,16 @@ const Navbar = () => {
       <h1 className="text-2xl font-semibold tracking-tight">Pet Adoption</h1>
       <div className="space-x-5">
         {user && user.role === "adopter" && (
+          <>
           <Link to="/adopter-dashboard" className=" text-white font-semibold hover:text-teal-200 transition duration-300">Dashboard</Link>
+          <Link to="/my-applications" className=" text-white font-semibold hover:text-teal-200 transition duration-300" >My Applications</Link>
+          </>
         )}
         {user && user.role === "shelter" && (
+          <>
           <Link to="/shelter-dashboard" className=" text-white font-semibold hover:text-teal-200 transition duration-300">Dashboard</Link>
+          <Link to="/shelter/applications" className=" text-white font-semibold hover:text-teal-200 transition duration-300">Applications</Link>
+          </>
         )}
         {user?.role === "admin" && (
         <Link to="/admin-dashboard" className=" text-white font-semibold hover:text-teal-200 transition duration-300">Admin</Link>

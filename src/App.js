@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AdopterDashboard from "./pages/AdopterDashboard";
@@ -8,25 +8,29 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
 import PetDetails from "./pages/PetDetails";
 
+import AdopterApplications from "./pages/AdopterApplications";
+import ShelterApplications from "./pages/ShelterApplications"; 
+
 function App() {
   const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <>
+  
       <Navbar />
 
       <Routes>
-        {/* Redirect root → dashboard or login */}
+        {/* root → proper dashboard or login */}
         <Route
           path="/"
           element={<Navigate to={user ? `/${user.role}-dashboard` : "/login"} />}
         />
 
-        {/* Public routes */}
-        <Route path="/login" element={<Login />} />
+        {/* public */}
+        <Route path="/login"    element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Protected dashboards */}
+        {/* adopter */}
         <Route
           path="/adopter-dashboard"
           element={
@@ -36,6 +40,16 @@ function App() {
           }
         />
         <Route
+          path="/my-applications"
+          element={
+            <ProtectedRoute>
+              <AdopterApplications />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* shelter */}
+        <Route
           path="/shelter-dashboard"
           element={
             <ProtectedRoute>
@@ -44,20 +58,28 @@ function App() {
           }
         />
         <Route
-          path="/admin-dashboard"
+          path="/shelter/applications"
           element={
             <ProtectedRoute>
-              {user?.role === "admin" ? (
-                <AdminDashboard />
-              ) : (
-                <Navigate to="/" />
-              )}
+              <ShelterApplications />
             </ProtectedRoute>
           }
         />
-        <Route path="/pet/:id" element={<PetDetails />} />
 
+        {/* admin */}
+        <Route
+          path="/admin-dashboard"
+          element={
+            <ProtectedRoute>
+              {user?.role === "admin" ? <AdminDashboard /> : <Navigate to="/" />}
+            </ProtectedRoute>
+          }
+        />
+
+        {/* shared */}
+        <Route path="/pet/:id" element={<PetDetails />} />
       </Routes>
+      
     </>
   );
 }

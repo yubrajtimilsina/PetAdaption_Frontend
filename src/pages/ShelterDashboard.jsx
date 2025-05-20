@@ -2,20 +2,15 @@ import React, { useEffect, useState } from "react";
 import AddPetForm from "../components/AddPetForm";
 import PetCard from "../components/PetCard";
 import axios from "axios";
+import api from "../api";
 
 const ShelterDashboard = () => {
   const [pets, setPets] = useState([]);
- const token = localStorage.getItem("token");   // ✅ now defined
+    // ✅ now defined
 
 useEffect(() => {
-  if (!token) return;                          // guard
-  axios
-    .get("http://localhost:3000/api/pets/mine", {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    .then(res => setPets(res.data))
-    .catch(err => console.error(err));
-}, [token]);
+    api.get("/pets/mine").then(res => setPets(res.data));
+   }, []);
 
   return (
 
