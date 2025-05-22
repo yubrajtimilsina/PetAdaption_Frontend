@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const ShelterApplications = () => {
   const [applications, setApplications] = useState([]);
-  const token = localStorage.getItem("token"); // ✅ using token from localStorage
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    if (!token) return; // 🔐 prevent request if no token
+    if (!token) return;
 
     axios
       .get("http://localhost:3000/api/applications/shelter", {
@@ -40,7 +41,7 @@ const ShelterApplications = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">📨 Applications for Your Pets</h1>
 
       {applications.length === 0 ? (
@@ -71,6 +72,13 @@ const ShelterApplications = () => {
                   </button>
                 </div>
               )}
+
+              <Link
+                to={`/chat/${app._id}`}
+                className="text-blue-600 hover:underline block mt-3"
+              >
+                💬 Chat with Adopter
+              </Link>
             </div>
           ))}
         </div>

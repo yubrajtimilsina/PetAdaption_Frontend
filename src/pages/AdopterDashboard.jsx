@@ -9,9 +9,11 @@ const AdopterDashboard = () => {
   const [age, setAge] = useState("");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchPets = async () => {
+       setLoading(true);
       try {
         const params = {
           page,
@@ -27,7 +29,9 @@ const AdopterDashboard = () => {
         setTotalPages(res.data.totalPages);
       } catch (err) {
         console.error(err);
-      }
+      } finally {
+      setLoading(false);
+    }
     };
 
     fetchPets();
@@ -74,11 +78,16 @@ const AdopterDashboard = () => {
       </div>
 
       {/* Pet Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {pets.map((pet) => (
-          <PetCard key={pet._id} pet={pet} />
-        ))}
-      </div>
+     {loading ? (
+  <p className="text-center text-gray-500">Loading pets...</p>
+    ) : pets.length === 0 ? (
+    <p className="text-gray-600 italic">No pets found.</p>
+   ) : (
+       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {pets.map(pet => <PetCard key={pet._id} pet={pet} />)}
+       </div>
+      )}
+
 
       {/* Pagination Controls */}
       <div className="flex justify-center items-center gap-4 mt-8">

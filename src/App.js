@@ -10,6 +10,7 @@ import PetDetails from "./pages/PetDetails";
 
 import AdopterApplications from "./pages/AdopterApplications";
 import ShelterApplications from "./pages/ShelterApplications"; 
+import ChatRoom from "./components/ChatRoom";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -75,6 +76,17 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+      
+        <Route
+         path="/chat/:applicationId"
+        element={
+       <ProtectedRoute>
+         <ChatRoom user={user} />
+       </ProtectedRoute>
+       }
+      />
+
 
         {/* shared */}
         <Route path="/pet/:id" element={<PetDetails />} />
