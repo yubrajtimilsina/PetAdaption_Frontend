@@ -1,16 +1,19 @@
 import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import AdopterDashboard from "./pages/AdopterDashboard";
-import ShelterDashboard from "./pages/ShelterDashboard";
-import AdminDashboard from "./pages/AdminDashboard";
+import AdopterDashboard from "./pages/Adopterpages/AdopterDashboard";
+import ShelterDashboard from "./pages/Shelterpages/ShelterDashboard";
+import AdminDashboard from "./pages/Adminpage/AdminDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
 import PetDetails from "./pages/PetDetails";
 
-import AdopterApplications from "./pages/AdopterApplications";
-import ShelterApplications from "./pages/ShelterApplications"; 
+import AdopterApplications from "./pages/Adopterpages/AdopterApplications";
+import ShelterApplications from "./pages/Shelterpages/ShelterApplications"; 
 import ChatRoom from "./components/ChatRoom";
+import AdminApplications from "./pages/Adminpage/AdminApplications";
+import AdminUserManagement from "./pages/Adminpage/AdminUserManagement";
+import AdminPets from "./pages/Adminpage/AdminPets";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -86,6 +89,11 @@ function App() {
        </ProtectedRoute>
        }
       />
+
+
+      <Route path="/admin/users" element={<AdminUserManagement />} />
+         <Route path="/admin/pets" element={<AdminPets />} />
+       <Route path="/admin/applications" element={<AdminApplications />} />
 
 
         {/* shared */}

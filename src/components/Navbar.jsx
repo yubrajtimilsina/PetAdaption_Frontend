@@ -26,7 +26,12 @@ const Navbar = () => {
           </>
         )}
         {user?.role === "admin" && (
+          <>
         <Link to="/admin-dashboard" className=" text-white font-semibold hover:text-teal-200 transition duration-300">Admin</Link>
+        <Link to="/admin/users" className="hover:text-gray-200">Users</Link>
+       <Link to="/admin/pets" className="hover:text-gray-200">Pets</Link>
+       <Link to="/admin/applications" className="hover:text-gray-200">Applications</Link>
+        </>
          )}
 
         {user ? (

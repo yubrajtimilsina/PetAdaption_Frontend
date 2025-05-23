@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import AddPetForm from "../components/AddPetForm";
-import PetCard from "../components/PetCard";
+import AddPetForm from "../../components/AddPetForm";
+import PetCard from "../../components/PetCard";
 import axios from "axios";
-import api from "../api";
+import api from "../../api";
 
 const ShelterDashboard = () => {
   const [pets, setPets] = useState([]);

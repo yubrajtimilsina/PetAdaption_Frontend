@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PetCard from "../components/PetCard";
+import PetCard from "../../components/PetCard";
 import axios from "axios";
 
 const AdopterDashboard = () => {
