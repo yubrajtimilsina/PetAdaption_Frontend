@@ -24,38 +24,52 @@ const AdminUserManagement = () => {
   }, [fetchUsers]);
 
   /* ---------- block / unblock ---------- */
- const handleBlockToggle = async (id) => {
+  const handleBlockToggle = async (id) => {
+    try {
+      const { data } = await axios.patch(
+        `http://localhost:3000/api/admin/users/${id}/block`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      setUsers(prevUsers =>
+        prevUsers.map(user =>
+          user._id === data._id ? { ...user, isBlocked: data.isBlocked } : user
+        )
+      );
+    } catch (err) {
+      console.error(err);
+      alert("Block / unblock failed");
+    }
+  };
+
+  /* ---------- approve shelter ---------- */
+  const approveShelter = async (id) => {
   try {
-    const { data } = await axios.patch(
-      `http://localhost:3000/api/admin/users/${id}/block`,
+    await axios.patch(
+      `http://localhost:3000/api/admin/users/${id}/approve`,
       {},
       { headers: { Authorization: `Bearer ${token}` } }
     );
-
-    // Optimistically update the local user state
-    setUsers(prevUsers =>
-      prevUsers.map(user =>
-        user._id === data._id ? { ...user, isBlocked: data.isBlocked } : user
-      )
-    );
+    fetchUsers(); // refresh list
   } catch (err) {
     console.error(err);
-    alert("Block / unblock failed");
+    alert("Approval failed");
   }
 };
+
 
 
   /* ---------- delete with confirmation ---------- */
   const handleDelete = async (id) => {
     const ok = window.confirm("Are you sure you want to delete this user?");
-    if (!ok) return;                     // user cancelled
+    if (!ok) return;
 
     try {
       await axios.delete(
         `http://localhost:3000/api/admin/users/${id}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      // reload list so UI stays in sync
       fetchUsers();
     } catch (err) {
       console.error(err);
@@ -71,7 +85,9 @@ const AdminUserManagement = () => {
         <thead>
           <tr>
             <th>Name</th><th>Email</th><th>Role</th>
-            <th>Status</th><th>Actions</th>
+            <th>Status</th>
+            <th>Approval</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -81,13 +97,26 @@ const AdminUserManagement = () => {
               <td>{user.email}</td>
               <td>{user.role}</td>
               <td>{user.isBlocked ? "Blocked" : "Active"}</td>
-              <td>
+              <td className="space-x-2">
+                {/* Block / Unblock */}
                 <button
                   onClick={() => handleBlockToggle(user._id)}
-                  className="mr-2 bg-yellow-400 px-2 rounded"
+                  className="bg-yellow-400 px-2 rounded"
                 >
                   {user.isBlocked ? "Unblock" : "Block"}
                 </button>
+
+                {/* Approve (only if shelter & not yet approved) */}
+                {user.role === "shelter" && !user.isApproved && (
+                  <button
+                    onClick={() => approveShelter(user._id)}
+                    className="bg-green-600 text-white px-2 rounded"
+                  >
+                    Approve
+                  </button>
+                )}
+
+                {/* Delete */}
                 <button
                   onClick={() => handleDelete(user._id)}
                   className="bg-red-500 text-white px-2 rounded"

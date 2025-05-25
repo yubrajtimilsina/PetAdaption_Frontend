@@ -14,6 +14,7 @@ import ChatRoom from "./components/ChatRoom";
 import AdminApplications from "./pages/Adminpage/AdminApplications";
 import AdminUserManagement from "./pages/Adminpage/AdminUserManagement";
 import AdminPets from "./pages/Adminpage/AdminPets";
+import Profile from "./pages/ProfilePage";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -29,6 +30,8 @@ function App() {
           path="/"
           element={<Navigate to={user ? `/${user.role}-dashboard` : "/login"} />}
         />
+
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
 
         {/* public */}
         <Route path="/login"    element={<Login />} />
