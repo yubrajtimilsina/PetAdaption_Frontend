@@ -15,6 +15,7 @@ import AdminApplications from "./pages/Adminpage/AdminApplications";
 import AdminUserManagement from "./pages/Adminpage/AdminUserManagement";
 import AdminPets from "./pages/Adminpage/AdminPets";
 import Profile from "./pages/ProfilePage";
+import FavoritePets from "./pages/favouritepage";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -97,6 +98,7 @@ function App() {
       <Route path="/admin/users" element={<AdminUserManagement />} />
          <Route path="/admin/pets" element={<AdminPets />} />
        <Route path="/admin/applications" element={<AdminApplications />} />
+       <Route path="/favorites" element={<FavoritePets />} />
 
 
         {/* shared */}

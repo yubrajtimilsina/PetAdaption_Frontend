@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import FavoriteButton from "./FavoriteButton";
 
-const PetCard = ({ pet }) => {
-  // Handle both local (relative) and cloud (absolute) images
+const PetCard = ({ pet, userFavorites = [], refetchPetsOrFavorites = () => {} }) => {
   const imageUrl = pet.photo?.startsWith("http")
     ? pet.photo
     : `http://localhost:3000/${pet.photo}`;
@@ -32,6 +32,12 @@ const PetCard = ({ pet }) => {
           </svg>
         </div>
       </div>
+
+      <FavoriteButton
+        petId={pet._id}
+        isFavorited={userFavorites.includes(pet._id)}
+        onToggle={refetchPetsOrFavorites}
+      />
 
       <h2 className="text-xl font-semibold mt-3 text-gray-800">{pet.name}</h2>
       <p className="text-sm text-gray-600 mb-2">{pet.type} • Age: {pet.age}</p>
