@@ -1,41 +1,39 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const ShelterApplications = () => {
+const API = "http://localhost:3000";
+
+export default function ShelterApplications() {
   const [applications, setApplications] = useState([]);
+  const [loading, setLoading]           = useState(true);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
     if (!token) return;
 
     axios
-      .get("http://localhost:3000/api/applications/shelter", {
+      .get(`${API}/api/applications/shelter`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((res) => setApplications(res.data))
-      .catch((err) => {
-        console.error("Error fetching applications:", err.response?.data?.message);
-        alert(err.response?.data?.message || "Failed to load applications");
-      });
+      .then((r) => setApplications(r.data))
+      .catch((e) =>
+        alert(e.response?.data?.message || "Failed to load applications"),
+      )
+      .finally(() => setLoading(false));
   }, [token]);
 
-  const handleStatusUpdate = async (id, status) => {
+  const updateStatus = async (id, status) => {
     try {
       await axios.patch(
-        `http://localhost:3000/api/applications/${id}`,
+        `${API}/api/applications/${id}`,
         { status },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       setApplications((prev) =>
-        prev.map((app) =>
-          app._id === id ? { ...app, status } : app
-        )
+        prev.map((a) => (a._id === id ? { ...a, status } : a)),
       );
-    } catch (err) {
-      console.error("Status update error:", err.response?.data?.message);
+    } catch {
       alert("Failed to update application status.");
     }
   };
@@ -44,8 +42,10 @@ const ShelterApplications = () => {
     <div className="p-4 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">📨 Applications for Your Pets</h1>
 
-      {applications.length === 0 ? (
-        <p className="text-gray-600 italic">No applications yet.</p>
+      {loading ? (
+        <p className="italic text-gray-500">Loading…</p>
+      ) : applications.length === 0 ? (
+        <p className="italic text-gray-500">No applications yet.</p>
       ) : (
         <div className="space-y-4">
           {applications.map((app) => (
@@ -54,18 +54,21 @@ const ShelterApplications = () => {
                 {app.pet?.name} — {app.adopter?.name}
               </h2>
               <p>Email: {app.adopter?.email}</p>
-              <p>Status: <span className="capitalize font-medium">{app.status}</span></p>
+              <p>
+                Status:{" "}
+                <span className="capitalize font-medium">{app.status}</span>
+              </p>
 
               {app.status === "pending" && (
                 <div className="mt-2 flex gap-2">
                   <button
-                    onClick={() => handleStatusUpdate(app._id, "approved")}
+                    onClick={() => updateStatus(app._id, "approved")}
                     className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 transition"
                   >
                     Approve
                   </button>
                   <button
-                    onClick={() => handleStatusUpdate(app._id, "rejected")}
+                    onClick={() => updateStatus(app._id, "rejected")}
                     className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition"
                   >
                     Reject
@@ -73,6 +76,7 @@ const ShelterApplications = () => {
                 </div>
               )}
 
+              {/* 💬 chat link */}
               <Link
                 to={`/chat/${app._id}`}
                 className="text-blue-600 hover:underline block mt-3"
@@ -85,6 +89,4 @@ const ShelterApplications = () => {
       )}
     </div>
   );
-};
-
-export default ShelterApplications;
+}
