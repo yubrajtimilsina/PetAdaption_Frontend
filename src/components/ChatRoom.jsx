@@ -32,25 +32,35 @@ const ChatRoom = ({ user }) => {
   }, [applicationId]);
 
   const sendMessage = async () => {
-    if (!user?._id || !text.trim()) return;
+  if (!user?._id || !text.trim()) return;
 
-    const msg = {
-      roomId: applicationId,
-      sender: user._id,
-      text,
-    };
+  const msg = {
+    roomId: applicationId,
+    sender: user._id,
+    text,
+  };
 
-    setText("");
-    socket.emit("sendMessage", msg);
-    try {
-      await axios.post("http://localhost:3000/api/messages", {
+  setText("");
+  socket.emit("sendMessage", msg);
+
+  try {
+    await axios.post(
+      "http://localhost:3000/api/messages",
+      {
         ...msg,
         application: applicationId,
-      });
-    } catch (err) {
-      console.error("Send message error:", err);
-    }
-  };
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${user?.token || localStorage.getItem("token")}`,
+        },
+      }
+    );
+  } catch (err) {
+    console.error("Send message error:", err);
+  }
+};
+
 
   return (
     <div className="chat max-w-2xl mx-auto p-4">
