@@ -16,6 +16,7 @@ import AdminUserManagement from "./pages/Adminpage/AdminUserManagement";
 import AdminPets from "./pages/Adminpage/AdminPets";
 import Profile from "./pages/ProfilePage";
 import FavoritePets from "./pages/favouritepage";
+import LandingPage from "./components/LandingPage";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -27,10 +28,14 @@ function App() {
 
       <Routes>
         {/* root → proper dashboard or login */}
-        <Route
-          path="/"
-          element={<Navigate to={user ? `/${user.role}-dashboard` : "/login"} />}
-        />
+       <Route
+       path="/"
+       element={
+         user
+        ? <Navigate to={`/${user.role}-dashboard`} />
+        : <LandingPage />        /* 👈 show landing if not authed */
+    }
+   />
 
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
 

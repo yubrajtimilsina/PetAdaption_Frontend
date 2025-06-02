@@ -99,22 +99,26 @@ const Profile = () => {
       </form>
 
       {/* ---------- switch role ---------- */}
-      {showPasswordField && (
-        <input
-          type="password"
-          value={currentPassword}
-          onChange={(e) => setCurrentPassword(e.target.value)}
-          className="w-full border p-2 rounded mt-4"
-          placeholder="Current password to confirm"
-        />
-      )}
-
-      <button
-        onClick={handleRoleSwitch}
-        className="mt-4 bg-purple-600 text-white px-4 py-2 rounded"
-      >
-        {showPasswordField ? "Confirm & Switch Role" : "Switch Role"}
-      </button>
+      {/* ---------- switch role (not for admin) ---------- */}
+     {role !== "admin" && (
+       <>
+        {showPasswordField && (
+           <input
+             type="password"
+            value={currentPassword}
+            onChange={(e) => setCurrentPassword(e.target.value)}
+           className="w-full border p-2 rounded mt-4"
+            placeholder="Current password to confirm"
+            />
+           )}
+       <button
+         onClick={handleRoleSwitch}
+       className="mt-4 bg-purple-600 text-white px-4 py-2 rounded"
+          >
+             {showPasswordField ? "Confirm & Switch Role" : "Switch Role"}
+        </button>
+        </>
+   )}
     </div>
   );
 };
