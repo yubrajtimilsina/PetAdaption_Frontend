@@ -10,23 +10,38 @@ const AdminApplications = () => {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    const fetchApplications = async () => {
-      setLoading(true);
-      try {
-        const res = await axios.get("http://localhost:3000/api/admin/applications", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setApplications(res.data);
-      } catch (err) {
-        console.error(err);
-        setError("Failed to load applications.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchApplications();
   }, [token]);
+
+  const fetchApplications = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get("http://localhost:3000/api/admin/applications", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setApplications(res.data);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to load applications.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    const confirmed = window.confirm("Are you sure you want to delete this application?");
+    if (!confirmed) return;
+
+    try {
+      await axios.delete(`http://localhost:3000/api/admin/applications/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      fetchApplications(); // Refresh list after deletion
+    } catch (err) {
+      console.error("Delete failed:", err);
+      alert("Failed to delete application.");
+    }
+  };
 
   const filtered = applications.filter((app) =>
     `${app.pet?.name} ${app.adopter?.name}`.toLowerCase().includes(search.toLowerCase())
@@ -59,6 +74,7 @@ const AdminApplications = () => {
                 <th className="p-2 border">Adopter</th>
                 <th className="p-2 border">Shelter</th>
                 <th className="p-2 border">Status</th>
+                <th className="p-2 border">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -85,6 +101,14 @@ const AdminApplications = () => {
                     >
                       {app.status}
                     </span>
+                  </td>
+                  <td className="p-2 border text-center">
+                    <button
+                      onClick={() => handleDelete(app._id)}
+                      className="text-red-600 hover:underline"
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}
