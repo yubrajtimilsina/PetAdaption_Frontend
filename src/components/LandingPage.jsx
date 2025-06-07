@@ -27,9 +27,9 @@ const LandingPage = () => {
   }, []);
 
     const stats = [
-    { icon: Heart, number: "100+", label: "Happy Adoptions" },
-    { icon: Users, number: "150+", label: "Partner Shelters" },
-    { icon: PawPrint, number: "5,000+", label: "Pets Rescued" }
+    { icon: Heart, number: "1,000+", label: "Happy Adoptions" },
+    { icon: Users, number: "100+", label: "Partner Shelters" },
+    { icon: PawPrint, number: "2,000+", label: "Pets Rescued" }
   ];
 
   const features = [
@@ -247,45 +247,57 @@ const LandingPage = () => {
 
       {/* Contact Section */}
       <section className="py-16 lg:py-24 bg-gradient-to-br from-teal-50 to-blue-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">
-                Get In Touch
-              </h2>
-              <p className="text-xl text-gray-600">
-                Have questions? We're here to help you find your perfect companion.
-              </p>
-            </div>
+      <div className="container mx-auto px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">
+              Get In Touch
+            </h2>
+            <p className="text-xl text-gray-600">
+              Have questions? We're here to help you find your perfect companion.
+            </p>
+          </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-white rounded-2xl p-8 shadow-lg">
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-teal-500 to-blue-500 rounded-xl flex items-center justify-center mr-4">
-                    <Mail className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-800">Email Us</h3>
-                    <p className="text-gray-600">support@petadopt.com</p>
-                  </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-white rounded-2xl p-8 shadow-lg">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-teal-500 to-blue-500 rounded-xl flex items-center justify-center mr-4">
+                  <Mail className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-800">Email Us</h3>
+                  <p className="text-gray-600">support@petadopt.com</p>
                 </div>
               </div>
+            </div>
 
-              <div className="bg-white rounded-2xl p-8 shadow-lg">
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-teal-500 to-blue-500 rounded-xl flex items-center justify-center mr-4">
-                    <MapPin className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-800">Visit Us</h3>
-                    <p className="text-gray-600">Pokhara, Nepal</p>
+            <div className="bg-white rounded-2xl p-8 shadow-lg">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-teal-500 to-blue-500 rounded-xl flex items-center justify-center mr-4">
+                  <MapPin className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-800">Visit Us</h3>
+                  <p className="text-gray-600">Pokhara, Nepal</p>
+                   <div style={{ width: '100%' }}> {/* Changed here */}
+                     <iframe
+                          width="100%"
+                             height="300"
+                            frameborder="0" // Note: React prefers camelCase for attributes like 'frameBorder'
+                            scrolling="no"
+                             marginheight="0" // React prefers camelCase for attributes like 'marginHeight'
+                             marginwidth="0" // React prefers camelCase for attributes like 'marginWidth'
+                             src="https://maps.google.com/maps?q=28.2097,83.9853&hl=en&z=12&output=embed"
+                            title="Pokhara, Nepal Map" // Added a title for accessibility
+                   ></iframe>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* CTA Section */}
       <section className="py-16 bg-gradient-to-r from-teal-500 to-blue-500">
