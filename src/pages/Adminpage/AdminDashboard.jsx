@@ -42,7 +42,7 @@ const AdminOverview = () => {
       </div>
 
       <p className="text-sm text-gray-500 mt-6">
-        *These are live stats from your backend API.
+        *These are live stats from my backend API.
       </p>
     </section>
   );
