@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Users, PawPrint, FileText, Ban, CheckCircle, XCircle } from "lucide-react";
 import axios from "axios";
 
-const AdminOverview = () => {
+const AdminDashboard = () => {
   const [stats, setStats] = useState(null);
   const token = localStorage.getItem("token");
 
@@ -69,4 +69,4 @@ const StatCard = ({ icon, value, label, bg }) => {
   );
 };
 
-export default AdminOverview;
+export default AdminDashboard;

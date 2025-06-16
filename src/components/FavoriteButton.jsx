@@ -1,45 +1,43 @@
 import axios from "axios";
+import { Heart } from "lucide-react";
 import { useState } from "react";
 
 const FavoriteButton = ({ petId, isFavorited, onToggle }) => {
-  const [loading, setLoading] = useState(false);
-  const [clicked, setClicked] = useState(false); // for temporary visual feedback
+  const [favorited, setFavorited] = useState(isFavorited);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const token = localStorage.getItem("token");
 
-  const toggleFavorite = async () => {
-    if (loading) return;
+  const handleClick = async (e) => {
+    e.stopPropagation();
+    setIsAnimating(true);
 
     try {
-      setLoading(true);
-      setClicked(true); // trigger animation
-
-      const token = localStorage.getItem("token");
-
-      await axios.post(
+      const res = await axios.post(
         `http://localhost:3000/api/favorites/${petId}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      onToggle(); // Tell parent to re-fetch updated favorite list
-    } catch (error) {
-      console.error("Favorite toggle failed:", error);
-      alert("Something went wrong!");
-    } finally {
-      setTimeout(() => setClicked(false), 300); // Reset after animation
-      setLoading(false);
+      const updatedFavorites = res.data.favorites;
+      setFavorited(updatedFavorites.includes(petId));
+      onToggle?.(); // refresh parent
+    } catch (err) {
+      console.error("Error toggling favorite", err);
     }
+
+    setTimeout(() => setIsAnimating(false), 300);
   };
 
   return (
     <button
-      onClick={toggleFavorite}
-      title={isFavorited ? "Remove from favorites" : "Add to favorites"}
-      disabled={loading}
-      className={`text-2xl transition-all duration-300 ${
-        isFavorited ? "text-red-500" : "text-gray-400"
-      } ${clicked ? "scale-125" : "scale-100"} ${loading ? "opacity-50 cursor-not-allowed" : "hover:scale-110"}`}
+      onClick={handleClick}
+      className={`p-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
+        favorited
+          ? "bg-red-500/90 text-white hover:bg-red-600"
+          : "bg-white/90 text-gray-600 hover:text-red-500"
+      } ${isAnimating ? "scale-125" : "scale-100"} hover:scale-110 shadow-lg`}
     >
-      ❤️
+      <Heart className={`w-5 h-5 ${favorited ? "fill-current" : ""}`} />
     </button>
   );
 };
